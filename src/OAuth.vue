@@ -26,7 +26,6 @@ export default {
   },
   props: {
     httpClient: {
-      type: Function,
       required: true,
     },
     path: {
