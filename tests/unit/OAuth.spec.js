@@ -24,7 +24,7 @@ describe('OAuth', () => {
           <form
             slot-scope="slotProps"
             data-testid="login-form"
-            @click="slotProps.attemptLogin"
+            @click="slotProps.attemptLogin({ username: 'foo', password: 'bar' })"
           >
             <button data-testid="submit-button">Log In</button>
           </form>
@@ -48,7 +48,11 @@ describe('OAuth', () => {
 
     it('sends a POST request upon submitting', () => {
       wrapper.find('[data-testid="submit-button"]').trigger('click');
-      expect(httpClient.post).toHaveBeenCalled();
+      expect(httpClient.post).toHaveBeenCalledWith('/oauth/token', {
+        grant_type: 'password',
+        username: 'foo',
+        password: 'bar',
+      });
     });
 
     it('passes the access token to handleAccessToken', () => {
@@ -67,5 +71,27 @@ describe('OAuth', () => {
           expect(wrapper.contains('[data-testid="login-form"]')).toBe(false);
         });
     });
+  });
+
+  describe('failure', () => {
+    beforeEach(() => {
+      httpClient.post.mockRejectedValue({
+        response: {
+          data: {
+            error_description: 'custom error message',
+          },
+        },
+      });
+    });
+
+    it('still shows the login form', () => {
+      wrapper.find('[data-testid="submit-button"]').trigger('click');
+      return Vue.nextTick(() => {
+        expect(wrapper.contains('[data-testid="login-form"]')).toBe(true);
+        expect(wrapper.contains('[data-testid="logged-in"]')).toBe(false);
+      });
+    });
+
+    // TODO: test rejects with error
   });
 });
