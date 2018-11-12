@@ -16,12 +16,12 @@
     "@vue/cli-plugin-eslint": "^3.1.1",
     "@vue/cli-plugin-unit-jest": "^3.1.1",
     "@vue/cli-service": "^3.1.1",
-    "@vue/eslint-config-airbnb": "^4.0.0",
     "@vue/test-utils": "^1.0.0-beta.20",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
     "eslint": "^5.8.0",
+    "eslint-config-codingitwrong": "^0.1.4",
     "eslint-plugin-vue": "^5.0.0-0",
     "vue-template-compiler": "^2.5.17"
   }
