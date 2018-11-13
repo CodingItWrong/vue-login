@@ -27,13 +27,20 @@ describe('Auth', () => {
     });
   });
 
+  it('renders the login form by default', () => {
+    expect(wrapper.contains('[data-testid="login-form"]')).toBe(true);
+  });
+
+  it('renders the logged-in state when the prop is set', () => {
+    wrapper.setProps({
+      initiallyLoggedIn: true,
+    });
+    expect(wrapper.contains('[data-testid="login-form"]')).toBe(false);
+  });
+
   describe('success', () => {
     beforeEach(() => {
       attemptLogin.mockResolvedValue();
-    });
-
-    it('renders the login form by default', () => {
-      expect(wrapper.contains('[data-testid="login-form"]')).toBe(true);
     });
 
     it('calls attemptLogin upon submitting', () => {

@@ -33,6 +33,17 @@ describe('OAuth', () => {
     });
   });
 
+  it('renders the login form by default', () => {
+    expect(wrapper.contains('[data-testid="login-form"]')).toBe(true);
+  });
+
+  it('renders the logged-in state when the prop is set', () => {
+    wrapper.setProps({
+      initiallyLoggedIn: true,
+    });
+    expect(wrapper.contains('[data-testid="login-form"]')).toBe(false);
+  });
+
   describe('success', () => {
     beforeEach(() => {
       httpClient.post.mockResolvedValue({
@@ -40,10 +51,6 @@ describe('OAuth', () => {
           access_token: 'ABC123',
         },
       });
-    });
-
-    it('renders the login form by default', () => {
-      expect(wrapper.contains('[data-testid="login-form"]')).toBe(true);
     });
 
     it('sends a POST request upon submitting', () => {
