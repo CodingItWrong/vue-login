@@ -1,5 +1,8 @@
 <template>
-  <auth :attempt-login="handleLogin">
+  <auth
+    :attempt-login="handleLogin"
+    :initially-logged-in="initiallyLoggedIn"
+  >
     <slot></slot>
     <template
       slot="login-form"
@@ -39,6 +42,10 @@ export default {
     defaultErrorMessage: {
       type: String,
       default: DEFAULT_ERROR_MESSAGE,
+    },
+    initiallyLoggedIn: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

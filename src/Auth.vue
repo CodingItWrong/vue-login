@@ -21,11 +21,21 @@ export default {
       type: Function,
       required: true,
     },
+    initiallyLoggedIn: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      loggedIn: false,
+      loggedIn: this.initiallyLoggedIn,
     };
+  },
+  watch: {
+    initiallyLoggedIn() {
+      // can vary internally, but also accepts changes from outside
+      this.loggedIn = this.initiallyLoggedIn;
+    },
   },
   methods: {
     handleLogin(...loginParams) {
