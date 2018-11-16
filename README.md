@@ -5,7 +5,7 @@ Login container components for Vue.
 ## Installation
 
 ```sh
-$ yarn install @codingitwrong/vue-login
+$ yarn add @codingitwrong/vue-login
 ```
 
 ## Usage
