@@ -4,11 +4,7 @@
       <slot></slot>
     </template>
     <template v-else>
-      <slot
-        name="login-form"
-        :attempt-login="handleLogin"
-      >
-      </slot>
+      <slot name="login-form" :attempt-login="handleLogin"></slot>
     </template>
   </div>
 </template>
@@ -39,8 +35,7 @@ export default {
   },
   methods: {
     handleLogin(...loginParams) {
-      return this.attemptLogin(...loginParams)
-        .then(() => this.loggedIn = true);
+      return this.attemptLogin(...loginParams).then(() => (this.loggedIn = true));
     },
   },
 };
