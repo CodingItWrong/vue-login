@@ -1,18 +1,8 @@
 <template>
-  <auth
-    :attempt-login="handleLogin"
-    :initially-logged-in="initiallyLoggedIn"
-  >
+  <auth :attempt-login="handleLogin" :initially-logged-in="initiallyLoggedIn">
     <slot></slot>
-    <template
-      slot="login-form"
-      slot-scope="slotProps"
-    >
-      <slot
-        name="login-form"
-        :attempt-login="slotProps.attemptLogin"
-      >
-      </slot>
+    <template slot="login-form" slot-scope="slotProps">
+      <slot name="login-form" :attempt-login="slotProps.attemptLogin"></slot>
     </template>
   </auth>
 </template>
@@ -52,11 +42,12 @@ export default {
     handleLogin({ username, password }) {
       const { httpClient, path } = this;
 
-      return httpClient.post(path, {
-        grant_type: 'password',
-        username,
-        password,
-      })
+      return httpClient
+        .post(path, {
+          grant_type: 'password',
+          username,
+          password,
+        })
         .then(response => this.handleSuccessResponse(response))
         .catch(error => this.handleErrorResponse(error));
     },
@@ -66,12 +57,7 @@ export default {
     },
     handleErrorResponse(error) {
       let message;
-      if (
-        error &&
-        error.response &&
-        error.response.data &&
-        error.response.data.error_description
-      ) {
+      if (error && error.response && error.response.data && error.response.data.error_description) {
         message = error.response.data.error_description;
       } else {
         message = this.defaultErrorMessage;
